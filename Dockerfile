@@ -10,5 +10,5 @@ COPY . .
 # Build the project
 RUN ./mvnw clean package -DskipTests
 
-# Run the app
-CMD ["java", "-jar", "target/*.jar"]
+# Run the built jar (replace with your actual jar name)
+CMD ["java", "-jar", "target/currency-0.0.1-SNAPSHOT.jar"]
