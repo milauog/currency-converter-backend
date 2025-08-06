@@ -18,7 +18,7 @@ public class WebConfig {
                         .allowedOrigins(
                                 "http://localhost:4200",                     // Angular local dev server
                                 "https://currency-converter-41c0c.web.app/",              // Replace with your deployed frontend URL (Firebase hosting URL)
-                                "https://your-frontend.firebaseapp.com"       // Sometimes Firebase uses this domain too
+                                "https://currency-converter-41c0c.firebaseapp.com"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
