@@ -11,20 +11,33 @@ public class WebConfig {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
-
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**") // Apply CORS only on API paths
+                registry.addMapping("/api/**")
                         .allowedOrigins(
-                                "http://localhost:4200",                     // Angular local dev server
-                                "https://currency-converter-41c0c.web.app/",              // Replace with your deployed frontend URL (Firebase hosting URL)
-                                "https://currency-converter-41c0c.firebaseapp.com"
+                                // Development URLs
+                                "http://localhost:4200",  // Angular default port
+                                "http://localhost:3000",  // Common React port
+                                "http://127.0.0.1:4200", // Alternative localhost
+
+                                // Production Firebase URLs (no trailing slashes)
+                                "https://currency-converter-41c0c.web.app",
+                                "https://currency-converter-41c0c.firebaseapp.com",
+
+                                // Render backend URL (if making requests from backend to backend)
+                                "https://currency-converter-backend-2.onrender.com"
                         )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                         .allowedHeaders("*")
-                        .allowCredentials(true); // If your frontend sends cookies/auth info
+                        .exposedHeaders(
+                                "Authorization",
+                                "Content-Type",
+                                "Content-Disposition",
+                                "Access-Control-Allow-Origin"
+                        )
+                        .allowCredentials(true)
+                        .maxAge(3600); // 1 hour cache for preflight responses
             }
         };
     }
 }
-
